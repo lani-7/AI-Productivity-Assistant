@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as PracticeRouteImport } from './routes/practice'
+import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as TutorRouteImport } from './routes/tutor'
 import { Route as VlsmRouteImport } from './routes/vlsm'
 
@@ -36,6 +37,11 @@ const PracticeRoute = PracticeRouteImport.update({
   path: '/practice',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TutorRoute = TutorRouteImport.update({
   id: '/tutor',
   path: '/tutor',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/calculator': typeof CalculatorRoute
   '/learn': typeof LearnRoute
   '/practice': typeof PracticeRoute
+  '/progress': typeof ProgressRoute
   '/tutor': typeof TutorRoute
   '/vlsm': typeof VlsmRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/calculator': typeof CalculatorRoute
   '/learn': typeof LearnRoute
   '/practice': typeof PracticeRoute
+  '/progress': typeof ProgressRoute
   '/tutor': typeof TutorRoute
   '/vlsm': typeof VlsmRoute
 }
@@ -69,20 +77,36 @@ export interface FileRoutesById {
   '/calculator': typeof CalculatorRoute
   '/learn': typeof LearnRoute
   '/practice': typeof PracticeRoute
+  '/progress': typeof ProgressRoute
   '/tutor': typeof TutorRoute
   '/vlsm': typeof VlsmRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calculator' | '/learn' | '/practice' | '/tutor' | '/vlsm'
+  fullPaths:
+    | '/'
+    | '/calculator'
+    | '/learn'
+    | '/practice'
+    | '/progress'
+    | '/tutor'
+    | '/vlsm'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calculator' | '/learn' | '/practice' | '/tutor' | '/vlsm'
+  to:
+    | '/'
+    | '/calculator'
+    | '/learn'
+    | '/practice'
+    | '/progress'
+    | '/tutor'
+    | '/vlsm'
   id:
     | '__root__'
     | '/'
     | '/calculator'
     | '/learn'
     | '/practice'
+    | '/progress'
     | '/tutor'
     | '/vlsm'
   fileRoutesById: FileRoutesById
@@ -92,6 +116,7 @@ export interface RootRouteChildren {
   CalculatorRoute: typeof CalculatorRoute
   LearnRoute: typeof LearnRoute
   PracticeRoute: typeof PracticeRoute
+  ProgressRoute: typeof ProgressRoute
   TutorRoute: typeof TutorRoute
   VlsmRoute: typeof VlsmRoute
 }
@@ -126,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PracticeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tutor': {
       id: '/tutor'
       path: '/tutor'
@@ -148,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalculatorRoute: CalculatorRoute,
   LearnRoute: LearnRoute,
   PracticeRoute: PracticeRoute,
+  ProgressRoute: ProgressRoute,
   TutorRoute: TutorRoute,
   VlsmRoute: VlsmRoute,
 }
