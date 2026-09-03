@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CalculatorRouteImport } from './routes/calculator'
+import { Route as LearnRouteImport } from './routes/learn'
 import { Route as PracticeRouteImport } from './routes/practice'
 import { Route as TutorRouteImport } from './routes/tutor'
 import { Route as VlsmRouteImport } from './routes/vlsm'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const CalculatorRoute = CalculatorRouteImport.update({
   id: '/calculator',
   path: '/calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnRoute = LearnRouteImport.update({
+  id: '/learn',
+  path: '/learn',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PracticeRoute = PracticeRouteImport.update({
@@ -44,6 +50,7 @@ const VlsmRoute = VlsmRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
+  '/learn': typeof LearnRoute
   '/practice': typeof PracticeRoute
   '/tutor': typeof TutorRoute
   '/vlsm': typeof VlsmRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
+  '/learn': typeof LearnRoute
   '/practice': typeof PracticeRoute
   '/tutor': typeof TutorRoute
   '/vlsm': typeof VlsmRoute
@@ -59,21 +67,30 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
+  '/learn': typeof LearnRoute
   '/practice': typeof PracticeRoute
   '/tutor': typeof TutorRoute
   '/vlsm': typeof VlsmRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calculator' | '/practice' | '/tutor' | '/vlsm'
+  fullPaths: '/' | '/calculator' | '/learn' | '/practice' | '/tutor' | '/vlsm'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calculator' | '/practice' | '/tutor' | '/vlsm'
-  id: '__root__' | '/' | '/calculator' | '/practice' | '/tutor' | '/vlsm'
+  to: '/' | '/calculator' | '/learn' | '/practice' | '/tutor' | '/vlsm'
+  id:
+    | '__root__'
+    | '/'
+    | '/calculator'
+    | '/learn'
+    | '/practice'
+    | '/tutor'
+    | '/vlsm'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalculatorRoute: typeof CalculatorRoute
+  LearnRoute: typeof LearnRoute
   PracticeRoute: typeof PracticeRoute
   TutorRoute: typeof TutorRoute
   VlsmRoute: typeof VlsmRoute
@@ -93,6 +110,13 @@ declare module '@tanstack/react-router' {
       path: '/calculator'
       fullPath: '/calculator'
       preLoaderRoute: typeof CalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn': {
+      id: '/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof LearnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/practice': {
@@ -122,6 +146,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalculatorRoute: CalculatorRoute,
+  LearnRoute: LearnRoute,
   PracticeRoute: PracticeRoute,
   TutorRoute: TutorRoute,
   VlsmRoute: VlsmRoute,
